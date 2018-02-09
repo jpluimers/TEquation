@@ -40,7 +40,7 @@ begin
 end;
 ``` 
 
-In the example above the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`. The coefficients of an equation in input must be listed in ascending order according with their degree; in fact as you can see above the correct input for `x^2 + 3x + 5 = 0` is `[5, 3, 2]` and <b>not</b> `[2, 3, 5]`. The test example was a quadratic equation (2nd degree equation). Here there is a list of the available classes.
+In the example the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`. The coefficients of an equation in input must be listed in ascending order according with their degree; in fact as you can see above the correct input for `x^2 + 3x + 5 = 0` is `[5, 3, 2]` and <b>not</b> `[2, 3, 5]`. The test example was a quadratic equation (2nd degree equation). Here there is a list of the available classes.
 
 <table width="100%">
  <tr>
@@ -98,13 +98,13 @@ The usage of an `NthDegree` is a bit different from the usual, here there's a si
 
 ```
 
-You must call the `SetPoints()` method before calling the `SolveEquation()` because each implementation needs some points to work. I've said "some" because according with the root finding algorithm you've chosen there is a specified order/amount of points that you have to enter. 
+You must call the `SetPoints()` method before calling the `SolveEquation()` because according with the root finding algorithm you've chosen there is a specified order/amount of points that you have to enter. The default root finding algorithm is `TNewtonRaphson` but here I've changed it calling `SetSolverType(TSolverType.TSecant);` and, since the secant alg. needs 3 starting points (start, end, precision), in the required method I've put them.
 
-The default root finding algorithm is `TNewtonRaphson` but here I've changed it calling `SetSolverType(TSolverType.TSecant);` and, since the secant alg. needs 3 starting points (start, end, precision), in the required method I've put them.
+The Newton-Raphson method instead only needs the starting point and the precision so the call would have been something like `SetPoints([2, 1.0E-8])`.
 
 # Notes
 
-If you aren't a math expert maybe you might be wondering why I am using root finding algorithms to solve 5th degree equations (an higher). To make a long story short: because I am forced! Very easily: there are formulas to solve 1st, 2nd, 3rd and 4th degree equations (the latter is very <b>COMPLEX</b> :p). There cannot be algebraic formulas to solve 5th and higher degree equations (ask google about Ruffini and Galois). So you have 2 choices:
+If you aren't a math expert maybe you might be wondering why I am using root finding algorithms to solve 5th degree equations (an higher). To make a long story short: because I am forced. Very easily: there are formulas to solve 1st, 2nd, 3rd and 4th degree equations (the latter is very <b>COMPLEX</b> (...)). There cannot be algebraic formulas to solve 5th and higher degree equations (ask google about Ruffini and Galois). So you have 2 choices:
 
  1. If you have an equation whose degree is >= 5 you must use the `NthDegree` class with a root finding algorithm.
  2. If you have an equation whose degree is <= 4 you can use the `NthDegree` (because root finding algorithms work with any kind of equation!) or the apposite class listed in the table above.
