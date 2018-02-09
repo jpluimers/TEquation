@@ -13,8 +13,8 @@ Just as a test, create a new VCL or FMX project. Now in the IDE click Project > 
 
 ``` Delphi
 procedure TForm1.Button1Click(Sender: TObject);
-var eq: TEquation;     //Equation solver engine
-    sol: TEquationSol; //Equation solutions container
+var eq: TEquation;      //Equation solver engine
+    sol: TEquationSol;  //Equation solutions container
     i: integer;
 begin
 
@@ -40,7 +40,40 @@ begin
 end;
 ``` 
 
-In the example above the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`.
+In the example above the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`. The test example was a quadratic equation (2nd degree equation). Here there is a list of the available classes.
+
+<table width="100%">
+ <tr>
+  <td style="width: 40%">
+   <b>Class</b>
+  </td>
+  <td style="width: 40%">
+   <b>Usage</b>
+  </td>
+ </tr>
+ <tr>
+  <td>TFirstDegree</td>
+  <td>First degree equation solver</td>
+ </tr>
+ <tr>
+  <td>TSecondDegree</td>
+  <td>Second degree equation solver</td>
+ </tr>
+ <tr>
+  <td>TThirdDegree</td>
+  <td>Third degree equation solver</td>
+ </tr>
+ <tr>
+  <td>TFourthDegree</td>
+  <td>Fourth degree equation solver</td>
+ </tr>
+ <tr>
+  <td>TNthDegree</td>
+  <td>Nth degree equation solver</td>
+ </tr>
+</table>
+
+
 # Notes
 
  1. To solve an equation use the `SolveEquation()` method; the first parameter is an open array that accepts the coefficients in input, the second parameter is the container of the solutions and the third parameter is an open array that contains the critical points for the root finding algorithm you've chosen.
