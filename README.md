@@ -5,7 +5,7 @@ This is a library written in Delphi that works with VCL and FMX and can be used 
  1. <b>Sources</b>. It contains only the source files of the library.
  2. <b>Component</b>. It is a simple component that you can drag and drop in the form; it offers an interface to the library. 
 
-The chapter below describes how to use the library only with <b>Sources</b>, if you want to know how to install and use the component please check the readme in the Component folder.
+The chapter below describes how to use the library only with the <b>Sources</b>, if you want to know how to install and use the component please check the readme in the Component folder.
 
 # Usage
 
@@ -40,7 +40,7 @@ begin
 end;
 ``` 
 
-In the example above the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`. The test example was a quadratic equation (2nd degree equation). Here there is a list of the available classes.
+In the example above the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`. The coefficients of an equation in input must be listed in ascending order according with their degree; in fact as you can see above the correct input for `x^2 + 3x + 5 = 0` is `[5, 3, 2]` and <b>not</b> `[2, 3, 5]`. The test example was a quadratic equation (2nd degree equation). Here there is a list of the available classes.
 
 <table width="100%">
  <tr>
@@ -76,15 +76,12 @@ In the example above the memo contains the two solutions that are `-0,75 + 1,391
 
 # Notes
 
- 1. To solve an equation use the `SolveEquation()` method; the first parameter is an open array that accepts the coefficients in input, the second parameter is the container of the solutions and the third parameter is an open array that contains the critical points for the root finding algorithm you've chosen.
- 
- 2. When the degree of the equation is >= 5 the component uses a root finding algorithm. You can setup the algorithm by setting the property `RootFindAlgorithm`; the default value is `TNewtonRaphson` which is in general a good algorithm (but it doesn't guarantee a 100% convergence!).
- 
- 3. When the degree of the equation is < 5 the component uses some standard algorithms to find the roots. By the way if don't agree and you want to use a root finding algorithm just call the method `ForceRootFindAlgorithm(true)`. In this way (for example) a 3rd degree equation will be solved using the specified root finding algorithm.
+If you aren't a math expert maybe you might be wondering why I am using root finding algorithms to solve 5th degree equations (an higher). To make a long story short: because I am forced! Very easily: there are formulas to solve 1st, 2nd, 3rd and 4th degree equations (the latter is very <b>COMPLEX</b> :p). There cannot be algebraic formulas to solve 5th and higher degree equations (ask google about Ruffini and Galois). So you have 2 choices:
 
-# Boring notes
-
-If you aren't a math expert maybe you might be wondering why I am using root finding algorithms to solve 5th degree equations (an higher). To make a long story short: because I am forced! Very easily: there are formulas to solve 1st, 2nd, 3rd and 4th degree equations (the latter is very <b>COMPLEX</b> :p). There cannot be algebraic formulas to solve 5th and higher degree equations (ask google about Ruffini and Galois)
+ 1. If you have an equation whose degree is >= 5 you must use the `NthDegree` class with a root finding algorithm.
+ 2. If you have an equation whose degree is <= 4 you can use the `NthDegree` (because root finding algorithms work with any kind of equation!) or the apposite class listed in the table above.
+ 
+In my opinion you should use the apposite class when you can because it's more precise and has more functionalities (such as the discriminant option). Also keep in mind that root finding algorithms doesn't have a perfect convergence ration ( = they can fail) so, again, in case of deg. <= 4 use the proper class.
 
 # Code
 
