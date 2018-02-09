@@ -3,42 +3,44 @@
 This is a library written in Delphi that works with VCL and FMX and can be used to solve equations `f(x) = 0` of any degree (from 1st degree to the Nth degree). There are 2 main folders:
 
  1. <b>Sources</b>. It contains only the source files of the library.
- 2. <b>Component</b>. It is a simple component that you can drag and drop in the form; it offers an interface to the library.
+ 2. <b>Component</b>. It is a simple component that you can drag and drop in the form; it offers an interface to the library. 
+
+The chapter below describes how to use the library only with <b>Sources</b>, if you want to know how to install and use the component please check the readme in the Component folder.
 
 # Usage
 
-It's really simple. Just drop a TButton and a TEquationSolver component in the form. Double click the button and add the following code to solve a trivial equation like `x^2 + 3x + 5 = 0` (no particular libraries under the uses list are needed).
+Just as a test, create a new VCL or FMX project. Now in the IDE click Project > Add To Project > Select the 4 source files (`.pas`) > Click ok. I suggest you to create a copy of the sources and put them in the <b>same</b> folder of your project. Now look at this very simple example that shows how to solve `x^2 + 3x + 5 = 0`.
 
 ``` Delphi
 procedure TForm1.Button1Click(Sender: TObject);
-var a: integer;
-    sol: TEquationSol;
+var eq: TEquation;     //Equation solver engine
+    sol: TEquationSol; //Equation solutions container
+    i: integer;
 begin
 
- Memo1.Clear;
+  sol := TEquationSol.Create;
+  try
+    eq := TSecondDegree.Create(5, 3, 2);
+    try
+      
+      //Solve the equation
+      eq.SolveEquation(sol);
+      
+      //Output the results on a memo
+      for i := 0 to sol.Count-1 do
+        Memo1.Lines.Add(sol[i].ToString);
 
- sol := TEquationSol.Create;
- try
-   
-   //Input of x^2 + 3x + 5 = 0
-   EquationSolver1.SolveEquation([5, 3, 2], sol, []);
-
-   for a := 0 to sol.Count-1 do
-     Memo1.Lines.Add(sol[a].ToString);
-   
-   //now Memo1 contains the 2 solutions of the equation
-   
- finally
-   sol.Free;
- end;
+    finally
+      eq.Free;
+    end;
+  finally
+    sol.Free;
+  end;
 
 end;
-```
+``` 
 
-The coefficients of an equation in input must be listed in ascending order according with their degree; in fact as you can see above the correct input for `x^2 + 3x + 5 = 0` is `[5, 3, 2]` and <b>not</b> `[2, 3, 5]`. The component is easy to use, once you've put the component on the form you just need a few lines of code. 
-
-When the degree of the equation is 1, 2, 3, or 4 the last parameter of the `SolveEquation` method can be just an empty array, otherwise you must input some points. I've said "some" because according with the root finding algorithm you've chosen there is a specified order/amount of points that you have to enter.
-
+In the example above the memo contains the two solutions that are `-0,75 + 1,39194109070751i` and `-0,75 - 1,39194109070751i`.
 # Notes
 
  1. To solve an equation use the `SolveEquation()` method; the first parameter is an open array that accepts the coefficients in input, the second parameter is the container of the solutions and the third parameter is an open array that contains the critical points for the root finding algorithm you've chosen.
