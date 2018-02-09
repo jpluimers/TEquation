@@ -73,6 +73,34 @@ In the example above the memo contains the two solutions that are `-0,75 + 1,391
  </tr>
 </table>
 
+The usage of an `NthDegree` is a bit different from the usual, here there's a simple example:
+
+``` Delphi
+
+ sol := TEquationSol.Create;
+  try
+   eq := TNthDegree.Create([5, 3, -2]);
+   try
+   
+     eq.SetPoints([2.2, 3, 1.0E-8]);         //required method call
+     eq.SetSolverType(TSolverType.TSecant);  //optional method call
+     eq.SolveEquation(sol);
+     
+     for i := 0 to sol.Count-1 do
+       Memo1.Lines.Add(sol[i].ToString);
+
+   finally
+     eq.Free;
+   end;
+ finally
+   sol.Free;
+ end;
+
+```
+
+You must call the `SetPoints()` method before calling the `SolveEquation()` because each implementation needs some points to work. I've said "some" because according with the root finding algorithm you've chosen there is a specified order/amount of points that you have to enter. 
+
+The default root finding algorithm is `TNewtonRaphson` but here I've changed it calling `SetSolverType(TSolverType.TSecant);` and, since the secant alg. needs 3 starting points (start, end, precision), in the required method I've put them.
 
 # Notes
 
