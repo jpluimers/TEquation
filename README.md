@@ -12,6 +12,9 @@ The chapter below describes how to use the library only with the <b>Sources</b>,
 Just as a test, create a new VCL or FMX project. Now in the IDE click Project > Add To Project > Select the 4 source files (`.pas`) > Click ok. I suggest you to create a copy of the sources and put them in the <b>same</b> folder of your project. Now look at this very simple example that shows how to solve `x^2 + 3x + 5 = 0`.
 
 ``` Delphi
+uses
+ Equation;
+ 
 procedure TForm1.Button1Click(Sender: TObject);
 var eq: TEquation;      //Equation solver engine
     sol: TEquationSol;  //Equation solutions container
