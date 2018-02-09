@@ -15,6 +15,9 @@ type
  TSolverType = (TNewtonRaphson = 0, TSecant);
 
 type
+ TEquationSol = TList<TComplex>;
+
+type
  TEquationError = class(Exception)
  end;
 
@@ -29,7 +32,7 @@ type
    constructor Create(values: array of double);
    //abstract methods
    function GetType: TEquationType; virtual; abstract;
-   procedure SolveEquation(const container: TList<TComplex>); virtual; abstract;
+   procedure SolveEquation(const container: TEquationSol); virtual; abstract;
    //class methods
    function ToString: string; override;
    function GetPolynomial: TPolynomial;
@@ -44,7 +47,7 @@ type
    //methods
    constructor Create(const a, b: double);
    function GetType: TEquationType; override;
-   procedure SolveEquation(const container: TList<TComplex>); override;
+   procedure SolveEquation(const container: TEquationSol); override;
    //properties
    property a: double read Fa;
    property b: double read Fb;
@@ -58,7 +61,7 @@ type
    //methods
    constructor Create(const a, b, c: double);
    function GetType: TEquationType; override;
-   procedure SolveEquation(const container: TList<TComplex>); override;
+   procedure SolveEquation(const container: TEquationSol); override;
    function getDelta: double;
    //properties
    property a: double read Fa;
@@ -74,7 +77,7 @@ type
    //methods
    constructor Create(const a, b, c, d: double);
    function GetType: TEquationType; override;
-   procedure SolveEquation(const container: TList<TComplex>); override;
+   procedure SolveEquation(const container: TEquationSol); override;
    function getDelta: double;
    //properties
    property a: double read Fa;
@@ -91,7 +94,7 @@ type
    //methods
    constructor Create(const a, b, c, d, e: double);
    function GetType: TEquationType; override;
-   procedure SolveEquation(const container: TList<TComplex>); override;
+   procedure SolveEquation(const container: TEquationSol); override;
    function getDelta: double;
    //properties
    property a: double read Fa;
@@ -115,7 +118,7 @@ type
     constructor Create(const params: array of double);
     destructor Destroy; override;
     function GetType: TEquationType; override;
-    procedure SolveEquation(const container: TList<TComplex>); override;
+    procedure SolveEquation(const container: TEquationSol); override;
     procedure SetSolverType(const x: TSolverType);
     procedure SetPoints(const k: array of double);
     //properties
@@ -161,7 +164,7 @@ begin
   Result := TEquationType.FirstDegree;
 end;
 
-procedure TFirstDegree.SolveEquation(const container: TList<TComplex>);
+procedure TFirstDegree.SolveEquation(const container: TEquationSol);
 begin
 
   if Assigned(container) then
@@ -196,7 +199,7 @@ begin
   Result := TEquationType.SecondDegree;
 end;
 
-procedure TSecondDegree.SolveEquation(const container: TList<TComplex>);
+procedure TSecondDegree.SolveEquation(const container: TEquationSol);
 var delta: double;
 begin
 
@@ -246,7 +249,7 @@ begin
   Result := TEquationType.ThirdDegree;
 end;
 
-procedure TThirdDegree.SolveEquation(const container: TList<TComplex>);
+procedure TThirdDegree.SolveEquation(const container: TEquationSol);
 var a_over_3, q, q_cube, r, theta, sqrt_q: double;
     s, t, sqrt_d, term1, delta: double;
     a, b, c: double;
@@ -354,7 +357,7 @@ begin
   Result := TEquationType.FourthDegree;
 end;
 
-procedure TFourthDegree.SolveEquation(const container: TList<TComplex>);
+procedure TFourthDegree.SolveEquation(const container: TEquationSol);
 var a, b, c, d, e: TComplex;
     Q1, Q2, Q3, Q4, Q5, Q6, Q7, temp: TComplex;
 begin
@@ -489,7 +492,7 @@ begin
   FSolver := x;
 end;
 
-procedure TNthDegree.SolveEquation(const container: TList<TComplex>);
+procedure TNthDegree.SolveEquation(const container: TEquationSol);
 begin
 
   if not FAreCPSetted then
@@ -504,4 +507,3 @@ begin
 end;
 
 end.
-
