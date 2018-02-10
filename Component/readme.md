@@ -1,3 +1,20 @@
+# TEquation
+
+To install this component (VCL and FMX) just follow these steps:
+
+1. Download this repo and open EquationPkg.dproj
+2. In the Project Manager (on the top right) double click `EquationPkg.bpl` to select it
+3. Now `EquationPkg.bpl` should be selected. Right click and do `Compile`, then `Build` and finally `Install`
+
+Do not forget to add the source files to the library path of the IDE. To do this go on Tools > Options > Delphi Options > Library and for each platform add the path to the folder containing the sources of the component. 
+
+<br>
+<p align="center">
+  <img src="https://github.com/albertodev01/TEquation/blob/master/Component/preview.png" />
+</p>
+
+The `n` indicates the number of items while the `k` indicates the number of groups. I have chosen those letters since it's a standard notation used also in the binomial coefficients but you can change them in the code before installing the component.
+
 # Usage (Component)
 
 It's really simple. Just drop a TButton and a TEquationSolver component in the form. Double click the button and add the following code to solve a trivial equation like `x^2 + 3x + 5 = 0` (no particular libraries under the uses list are needed).
